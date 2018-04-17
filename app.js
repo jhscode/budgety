@@ -76,6 +76,11 @@ var UIController = (function() {
       };
     },
 
+    addListItem: function(obj, type) {
+
+
+    },
+
     getDOMstrings: function() {
       return DOMstrings;
     }
