@@ -94,7 +94,10 @@ var UIController = (function() {
       }
 
       // Replace the placeholder text with actual data
-
+      newHTML = html.replace('%id%',obj.id);
+      newHTML = newHTML.replace('%description%', obj.description);
+      newHTML = newHTML.replace('%value%', obj.value);
+      
       // Insert HTMl into the DOM
 
 
