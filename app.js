@@ -167,6 +167,14 @@ var UIController = (function() {
 
     },
 
+    delteListItem: function(selctorID) {
+      var el;
+
+      el = document.getElementById(selctorID);
+
+      el.parentNode.removeChild(el);
+    },
+
     clearFields: function() {
         var fields, fieldsArr;
 
@@ -274,9 +282,10 @@ var controller = (function(budgetCtrl, UICtrl) {
       budgetCtrl.deleteItem(type, ID);
       
       // 2. delete the item from the UI
-
+      UICtrl.delteListItem(itemID);
 
       // 3. update and show the new budget
+      updateBudget();
 
     }
 
