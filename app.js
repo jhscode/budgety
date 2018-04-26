@@ -152,7 +152,8 @@ var UIController = (function() {
     expensesLabel: '.budget__expenses--value',
     percentageLabel: '.budget__expenses--percentage',
     container: '.container',
-    expensesPercLabel: '.item__percentage'
+    expensesPercLabel: '.item__percentage',
+    dateLabel: '.budget__title--month'
   };
 
   var formatNumber = function(num, type) {
@@ -259,28 +260,38 @@ var UIController = (function() {
     },
 
     displayPercentages: function(percentages) {
-      var fields = document.querySelectorAll(DOMstrings.expensesPercLabel);
+        var fields = document.querySelectorAll(DOMstrings.expensesPercLabel);
 
-      var nodeListForEach = function(list, callback) {
-        for (var i = 0; i < list.length; i++) {
-          callback(list[i], i);
+        var nodeListForEach = function(list, callback) {
+          for (var i = 0; i < list.length; i++) {
+            callback(list[i], i);
+          }
+        };
+
+      nodeListForEach(fields, function(current, index) {
+        if (percentages[index] > 0){
+          current.textContent = percentages[index] + '%';
+        } else {
+          current.textContent = '---';
         }
-      };
+      });
+    },
 
-    nodeListForEach(fields, function(current, index) {
-      if (percentages[index] > 0){
-        current.textContent = percentages[index] + '%';
-      } else {
-        current.textContent = '---';
-      }
-    });
+    displayDate: function() {
+      var now, month, year, months;
+      now = new Date();
 
-  },
+      months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+      month = now.getMonth();
+
+      year = now.getFullYear();
+      document.querySelector(DOMstrings.dateLabel).textContent = months[month] + ' ' + year;
+    },
 
     getDOMstrings: function() {
       return DOMstrings;
     }
-
   };
 })();
 
@@ -386,6 +397,7 @@ var controller = (function(budgetCtrl, UICtrl) {
   return {
     init: function() {
       console.log('Application started');
+      UICtrl.displayDate(); 
       UICtrl.displayBudget({
         budget: 0,
         totalInc: 0,
